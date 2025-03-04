@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Hannah Calcutt | Data Science & Analytics Expert</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        /* Root variables and basic styles */
+        :root {
+            --primary: #3b82f6;
+            --secondary: #1e40af;
+            --accent: #60a5fa;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--light);
+        }
+
+        /* Header styles */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* About Page Specific Styles */
+        .about-hero {
+            padding-top: 120px;
+            padding-bottom: 60px;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-hero::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: url('/api/placeholder/1920/1080') center/cover;
+            opacity: 0.1;
+            mix-blend-mode: overlay;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-intro {
+            max-width: 800px;
+            margin-bottom: 60px;
+        }
+
+        .about-intro h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .expertise-section {
+            padding: 80px 5%;
+            background: white;
+        }
+
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .expertise-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            height: 100%;
+        }
+
+        .expertise-card h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .timeline-section {
+            padding: 80px 5%;
+            background: var(--light);
+        }
+
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: var(--primary);
+            opacity: 0.3;
+        }
+
+        .timeline-item {
+            padding-left: 30px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -4px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--primary);
+        }
+
+        .timeline-date {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stats-section {
+            padding: 60px 5%;
+            background: var(--secondary);
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .stat-card h4 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .certifications-section {
+            padding: 80px 5%;
+            background: white;
+        }
+
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .certification-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .certification-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .publications-section {
+            padding: 80px 5%;
+            background: var(--light);
+        }
+
+        .skills-section {
+            padding: 80px 5%;
+            background: white;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .skill-category {
+            margin-bottom: 2rem;
+        }
+
+        .skill-category h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .education-section {
+            padding: 80px 5%;
+            background: var(--light);
+        }
+
+        .education-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .education-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .education-date {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            padding: 2rem 5%;
+            background: var(--dark);
+            color: white;
+            text-align: center;
+        }
+
+        @media (max-width: 992px) {
+            .expertise-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .expertise-grid,
+            .stats-grid,
+            .certifications-grid,
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-intro h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">Hannah Calcutt</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="about-hero">
+        <div class="about-container">
+            <div class="about-intro">
+                <h1>About Me</h1>
+                <p>I am a data scientist and consultant who transforms complex data into clear, actionable insights. My unique background in scientific research combined with advanced skills in Python, SQL, and machine learning allows me to develop innovative solutions that drive meaningful results. Whether visualising complex datasets or optimising business processes, I consistently deliver clarity from complexity.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="expertise-section">
+        <div class="about-container">
+            <h2>Areas of Expertise</h2>
+            <div class="expertise-grid">
+                <div class="expertise-card">
+                    <h3>Data Visualisation & Storytelling</h3>
+                    <p>Creating compelling visual narratives from complex datasets using tools like Python, Power BI, and Tableau to communicate insights effectively to both technical and non-technical audiences.</p>
+                </div>
+                <div class="expertise-card">
+                    <h3>Advanced Analytics & AI</h3>
+                    <p>Implementing sophisticated machine learning models, natural language processing, and predictive analytics solutions to solve complex business challenges and uncover hidden patterns in data.</p>
+                </div>
+                <div class="expertise-card">
+                    <h3>Business Intelligence</h3>
+                    <p>Developing comprehensive BI solutions that enable data-driven decision making across organisations, from pipeline development to strategic reporting.</p>
+                </div>
+                <div class="expertise-card">
+                    <h3>Earth & Space Data Analysis</h3>
+                    <p>Specialised experience in analysing satellite and observational data for scientific research, environmental monitoring and sustainability initiatives.</p>
+                </div>
+                <div class="expertise-card">
+                    <h3>Process Optimisation</h3>
+                    <p>Streamlining business operations through data analysis, automated workflows, and strategic implementation of technical solutions.</p>
+                </div>
+                <div class="expertise-card">
+                    <h3>Strategic Consulting</h3>
+                    <p>Providing expert guidance on data strategy, product development, and effective communication of complex analytical findings to stakeholders.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="timeline-section">
+        <div class="about-container">
+            <h2>Professional Journey</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Recent</div>
+                    <h3>Data Science and Analytics Consultant</h3>
+                    <p>Working with clients to deliver technical and AI solutions for complex problems, including UI design, data visualisation, performance analysis, and NLP tools for trend identification in various industries.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Previously</div>
+                    <h3>Data Scientist / Analytics Scientist</h3>
+                    <p>Provided business intelligence for environmental monitoring across finance and ESG sectors. Developed advanced algorithms for remote sensing that significantly reduced analysis time using SQL and Python.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Earlier Career</div>
+                    <h3>Academic Research Scientist</h3>
+                    <p>Led technical research projects, secured substantial grant funding, and engineered predictive models using Python and cloud computing for scientific research applications.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Research Background</div>
+                    <h3>Scientific Researcher</h3>
+                    <p>Directed international projects, applied advanced statistical techniques including PCA for pioneering analysis methodologies, and conducted predictive modelling for scientific observations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h4>10+</h4>
+                <p>Years Experience</p>
+            </div>
+            <div class="stat-card">
+                <h4>30+</h4>
+                <p>Research Publications</p>
+            </div>
+            <div class="stat-card">
+                <h4>100+</h4>
+                <p>Technical Documents</p>
+            </div>
+            <div class="stat-card">
+                <h4>Multiple</h4>
+                <p>Successful Projects</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="skills-section">
+        <div class="about-container">
+            <h2>Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Programming & Computing</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">Python (Advanced)</span>
+                        <span class="skill-tag">SQL (Advanced)</span>
+                        <span class="skill-tag">Machine Learning</span>
+                        <span class="skill-tag">NumPy</span>
+                        <span class="skill-tag">SciPy</span>
+                        <span class="skill-tag">Pandas</span>
+                        <span class="skill-tag">scikit-learn</span>
+                        <span class="skill-tag">TensorFlow</span>
+                        <span class="skill-tag">PyTorch</span>
+                        <span class="skill-tag">OpenCV</span>
+                        <span class="skill-tag">AWS</span>
+                        <span class="skill-tag">Google Cloud</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">Docker</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Data Visualisation</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">Matplotlib</span>
+                        <span class="skill-tag">Plotly</span>
+                        <span class="skill-tag">Dash</span>
+                        <span class="skill-tag">Seaborn</span>
+                        <span class="skill-tag">Power BI</span>
+                        <span class="skill-tag">Tableau</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Analysis Methodologies</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">Remote Sensing</span>
+                        <span class="skill-tag">Statistical Analysis</span>
+                        <span class="skill-tag">ML Regression</span>
+                        <span class="skill-tag">Neural Networks</span>
+                        <span class="skill-tag">PCA</span>
+                        <span class="skill-tag">NLP</span>
+                        <span class="skill-tag">Predictive Modelling</span>
+                        <span class="skill-tag">Trend Analysis</span>
+                        <span class="skill-tag">Time-series Analysis</span>
+                        <span class="skill-tag">Causal Inference</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Professional Skills</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">Project Management</span>
+                        <span class="skill-tag">Strategic Thinking</span>
+                        <span class="skill-tag">Research Leadership</span>
+                        <span class="skill-tag">Technical Writing</span>
+                        <span class="skill-tag">Grant Writing</span>
+                        <span class="skill-tag">Scientific Communication</span>
+                        <span class="skill-tag">Agile Methodologies</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="education-section">
+        <div class="about-container">
+            <h2>Education</h2>
+            <div class="education-grid">
+                <div class="education-card">
+                    <h3>PhD Astrophysics</h3>
+                    <p>University College London</p>
+                    <p>Performed regression analysis on scientific data and computational modelling of astrophysical phenomena. Led technical proposals for research resources and conducted advanced data analysis.</p>
+                </div>
+                <div class="education-card">
+                    <h3>MPhys Astrophysics with International Experience</h3>
+                    <p>Russell Group University with study abroad experience at a prestigious US institution</p>
+                    <p>First Class with Honours</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="publications-section">
+        <div class="about-container">
+            <h2>Research Impact</h2>
+            <p>Throughout my academic career, I've authored numerous scientific research papers, contributed to many technical documents, and delivered presentations at international conferences and workshops. My research has pioneered new methodologies in data analysis that have become standard practices in the field.</p>
+            <p>Key achievements include:</p>
+            <ul>
+                <li>Development of innovative methods for extracting valuable data from contaminated datasets</li>
+                <li>Leading data analysis for significant scientific projects, resulting in major discoveries</li>
+                <li>Pioneering analysis techniques that substantially improved signal-to-noise ratios</li>
+                <li>Creating automated testing pipelines that reduced analysis time from hours to minutes</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="certifications-section">
+        <div class="about-container">
+            <h2>From Scientific Research to Data Science</h2>
+            <p>My journey from scientific research to data science has equipped me with a unique perspective on problem-solving. The skills I developed analyzing vast scientific datasets and complex phenomena have proven invaluable in the business world, allowing me to see patterns and solutions that others might miss.</p>
+            <p>This background gives me an edge in:</p>
+            <div class="certifications-grid">
+                <div class="certification-card">
+                    <div class="certification-icon">🔍</div>
+                    <h3>Complex Problem Solving</h3>
+                    <p>Finding elegant solutions to seemingly intractable data challenges</p>
+                </div>
+                <div class="certification-card">
+                    <div class="certification-icon">📊</div>
+                    <h3>Advanced Analytics</h3>
+                    <p>Applying rigorous scientific methods to business data</p>
+                </div>
+                <div class="certification-card">
+                    <div class="certification-icon">🚀</div>
+                    <h3>Innovation</h3>
+                    <p>Developing novel approaches that deliver breakthrough results</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Hannah Calcutt | Data Scientist and Consultant</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            gsap.from('.about-intro', {
+                opacity: 0,
+                y: 30,
+                duration: 1,
+                delay: 0.5
+            });
+
+            gsap.from('.expertise-card', {
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                stagger: 0.2,
+                scrollTrigger: '.expertise-grid'
+            });
+
+            gsap.from('.timeline-item', {
+                opacity: 0,
+                x: -30,
+                duration: 0.8,
+                stagger: 0.3,
+                scrollTrigger: '.timeline'
+            });
+
+            gsap.from('.skill-category', {
+                opacity: 0,
+                y: 20,
+                duration: 0.8,
+                stagger: 0.2,
+                scrollTrigger: '.skills-grid'
+            });
+        });
+    </script>
+</body>
+</html>

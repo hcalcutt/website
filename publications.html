@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hannah Calcutt | Publications</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --secondary: #1e40af;
+            --accent: #60a5fa;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--light);
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .page-banner {
+            padding: 160px 5% 60px;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-banner::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/api/placeholder/1920/400') center/cover;
+            opacity: 0.1;
+            mix-blend-mode: overlay;
+        }
+
+        .banner-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-banner h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 5% 80px;
+        }
+
+        .orcid-badge {
+            display: inline-block;
+            margin-bottom: 2rem;
+            padding: 0.5rem 1rem;
+            background: #f1f5f9;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .orcid-logo {
+            width: 20px;
+            height: 20px;
+            background: #A6CE39;
+            border-radius: 50%;
+        }
+
+        .orcid-id {
+            font-weight: 600;
+        }
+
+        .publications-list {
+            margin-top: 2rem;
+            list-style: none;
+        }
+
+        .publication-item {
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            position: relative;
+        }
+
+        .publication-item:last-child {
+            border-bottom: none;
+        }
+
+        .publication-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .publication-details {
+            color: #475569;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .publication-link {
+            display: inline-block;
+            margin-top: 0.75rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .publication-link:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+
+        .tooltip {
+            position: absolute;
+            z-index: 100;
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            width: 300px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            font-size: 0.85rem;
+            color: #475569;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+            pointer-events: none;
+            right: 0;
+            top: 0;
+        }
+
+        .publication-item:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .tooltip-technical {
+            margin-bottom: 0.75rem;
+        }
+
+        .tooltip-divider {
+            border-top: 1px solid #e2e8f0;
+            margin: 0.75rem 0;
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 2rem 5%;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .page-banner h1 {
+                font-size: 2.25rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+            
+            .tooltip {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="/" class="logo">Hannah Calcutt</a>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="publications.html">Publications</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-banner" id="publications">
+        <div class="banner-content">
+            <h1>Publications</h1>
+            <p>Research papers in astrophysics and data science</p>
+        </div>
+    </section>
+
+    <main class="content-container">
+        <div class="orcid-badge">
+            <div class="orcid-logo"></div>
+            <span class="orcid-id">ORCID: 0000-0003-3393-294X</span>
+        </div>
+
+        <ul class="publications-list">
+            <li class="publication-item" data-summary="This study presents the first results from PILS-Cygnus, focusing on the star-forming region CygX-N30. Using interferometric observations, we detected complex molecular signatures that indicate the early chemical evolution of the protostellar environment." data-simple="We studied baby stars forming in the Cygnus region of our galaxy using radio telescopes. By analyzing the chemicals present, we can understand how stars like our Sun begin to form and evolve.">
+                <h3 class="publication-title">Protostellar Interferometric Line Survey of the Cygnus X region (PILS-Cygnus). First results: Observations of CygX-N30</h3>
+                <p class="publication-details">van der Walt, S. J.; Kristensen, L. E.; Jørgensen, J. K.; Calcutt, H.; S. Manigand; el Akel, M.; Garrod, R. T.; Qiu, K., A & A, 655, A86, 52, 2021.</p>
+                <a href="https://doi.org/10.1051/0004-6361/202141923" class="publication-link" target="_blank">View Publication</a>
+                <div class="tooltip">
+                    <div class="tooltip-technical">This study presents the first results from PILS-Cygnus, focusing on the star-forming region CygX-N30. Using interferometric observations, we detected complex molecular signatures that indicate the early chemical evolution of the protostellar environment.</div>
+                    <div class="tooltip-divider"></div>
+                    <div class="tooltip-simple">We studied baby stars forming in the Cygnus region of our galaxy using radio telescopes. By analyzing the chemicals present, we can understand how stars like our Sun begin to form and evolve.</div>
+                </div>
+            </li>
+
+            <li class="publication-item" data-summary="This paper investigates the prebiotic molecular inventory of Serpens SMM1, focusing on the isomers CH3NCO and HOCH2CN. These molecules are important for understanding potential pathways to prebiotic chemistry in star-forming regions." data-simple="We looked for molecules that could be important for the origins of life in a star-forming cloud called Serpens SMM1. We studied specific carbon-containing molecules that might be precursors to more complex biological compounds.">
+                <h3 class="publication-title">The prebiotic molecular inventory of Serpens SMM1. I. An investigation of the isomers CH3NCO and HOCH2CN</h3>
+                <p class="publication-details">N. F. W. Ligterink, A. Ahmadi, A. Coutens, Ł. Tychoniec, H. Calcutt, E. F. van Dishoeck, H. Linnartz, J. K. Jørgensen, R. T. Garrod, and J. Bouwman, A&A, 647, A87, 32, 2021.</p>
+                <a href="#" class="publication-link" target="_blank">View Publication</a>
+                <div class="tooltip">
+                    <div class="tooltip-technical">This paper investigates the prebiotic molecular inventory of Serpens SMM1, focusing on the isomers CH3NCO and HOCH2CN. These molecules are important for understanding potential pathways to prebiotic chemistry in star-forming regions.</div>
+                    <div class="tooltip-divider"></div>
+                    <div class="tooltip-simple">We looked for molecules that could be important for the origins of life in a star-forming cloud called Serpens SMM1. We studied specific carbon-containing molecules that might be precursors to more complex biological compounds.</div>
+                </div>
+            </li>
+
+            <li class="publication-item" data-summary="This study examines the resolved molecular line observations of the young disk around TMC1A, revealing an inherited molecular layer that provides insights into the early stages of disk formation and evolution." data-simple="We studied the chemicals in a very young planetary disk around a forming star. Our observations show that some molecules from the original cloud survive the process of disk formation, which has implications for the chemistry of future planets.">
+                <h3 class="publication-title">Resolved molecular line observations reveal an inherited molecular layer in the young disk around TMC1A</h3>
+                <p class="publication-details">Harsono, D., van der Wiel, M., Bjerkeli, P., Ramsey, J., Calcutt, H., Kristensen, L., Jørgensen, J., et al., A&A, 646, A72, 17, 2021.</p>
+                <a href="#" class="publication-link" target="_blank">View Publication</a>
+                <div class="tooltip">
+                    <div class="tooltip-technical">This study examines the resolved molecular line observations of the young disk around TMC1A, revealing an inherited molecular layer that provides insights into the early stages of disk formation and evolution.</div>
+                    <div class="tooltip-divider"></div>
+                    <div class="tooltip-simple">We studied the chemicals in a very young planetary disk around a forming star. Our observations show that some molecules from the original cloud survive the process of disk formation, which has implications for the chemistry of future planets.</div>
+                </div>
+            </li>
+
+            <li class="publication-item" data-summary="This paper reports the first detection of the unsaturated 3-carbon molecules Propenal and Propene towards the protostar IRAS 16293-2422 B, providing new insights into the formation of complex organic molecules in protostellar environments." data-simple="We found two simple carbon-chain molecules in a forming star system that had never been seen in such an environment before. These findings help us understand how complex organic molecules form in space.">
+                <h3 class="publication-title">The ALMA-PILS survey: First detection of the unsaturated 3-carbon molecules Propenal (C2H3CHO) and Propene (C3H6) towards IRAS 16293–2422 B</h3>
+                <p class="publication-details">Manigand, S., Coutens, A., Loison, J.-C., Wakelam, V., Calcutt, H., Mu ̈ller, H. S. P., Jørgensen, J. K. et al., A&A, 645, A53, 23, 2021.</p>
+                <a href="#" class="publication-link" target="_blank">View Publication</a>
+                <div class="tooltip">
+                    <div class="tooltip-technical">This paper reports the first detection of the unsaturated 3-carbon molecules Propenal and Propene towards the protostar IRAS 16293-2422 B, providing new insights into the formation of complex organic molecules in protostellar environments.</div>
+                    <div class="tooltip-divider"></div>
+                    <div class="tooltip-simple">We found two simple carbon-chain molecules in a forming star system that had never been seen in such an environment before. These findings help us understand how complex organic molecules form in space.</div>
+                </div>
+            </li>
+
+            <li class="publication-item" data-summary="This study aims to demystify dust polarisation during the embedded phase of protostar formation, using radiative transfer modeling to better understand the magnetic field structure and dust properties in these regions." data-simple="We studied how light gets polarized when passing through dust around baby stars. This helps us understand the magnetic fields and dust properties in these environments, which affect how stars form.">
+                <h3 class="publication-title">Towards the demystification of dust polarisation during the embedded phase of protostar formation</h3>
+                <p class="publication-details">Kuffmeier, S. Reissl, S. Wolf, I. Stephens and H. Calcutt, A&A, 639, A137, 2020.</p>
+                <a href="#" class="publication-link" target="_blank">View Publication</a>
+                <div class="tooltip">
+                    <div class="tooltip-technical">This study aims to demystify dust polarisation during the embedded phase of protostar formation, using radiative transfer modeling to better understand the magnetic field structure and dust properties in these regions.</div>
+                    <div class="tooltip-divider"></div>
+                    <div class="tooltip-simple">We studied how light gets polarized when passing through dust around baby stars. This helps us understand the magnetic fields and dust properties in these environments, which affect how stars form.</div>
+                </div>
+            </li>
+
+            <li class="publication-item" data-summary="This paper constrains the properties of the infalling envelope around the protostar BHR71 and reports the detection of a hot corino, a chemically rich region containing complex organic molecules." data-simple="We studied the gas falling onto a very young star called BHR71 and discovered a 'hot corino' - a warm region rich in complex organic molecules - around the star. This is important for understanding how planets might eventually form.">
+                <h3 class="publication-title">Constraining the Infalling Envelope of Embedded Protostars: BHR71 and its Hot Corino</h3>
+                <p class="publication-details">Y. Yang, N. J. Evans II, A. Smith, J. Lee, J. J. Tobin, S. Terebey, Calcutt, J. K. Jørgensen, J. D. Green, T. L. Bourke, ApJ, 891, 61, 2020.</p>
+                <a href="#" class="publication-link" target="_blank">View Publication</a>
+                <div class="tooltip">
+                    <div class="tooltip-technical">This paper constrains the properties of the infalling envelope around the protostar BHR71 and reports the detection of a hot corino, a chemically rich region containing complex organic molecules.</div>
+                    <div class="tooltip-divider"></div>
+                    <div class="tooltip-simple">We studied the gas falling onto a very young star called BHR71 and discovered a 'hot corino' - a warm region rich in complex organic molecules - around the star. This is important for understanding how planets might eventually form.</div>
+                </div>
+            </li>
+
+            <li class="publication-item" data-summary="This study presents a comprehensive inventory of complex organic molecules towards the protostar IRAS 16293-2422 A, providing constraints on their formation pathways and the physical conditions in this environment." data-simple="We cataloged all the complex organic molecules we could find around a forming star system. This chemical inventory helps us understand what kinds of molecules exist in environments where planets will eventually form.">
+                <h3 class="publication-title">The ALMA-PILS survey: Inventory of complex organic molecules towards IRAS 16293-2422 A</h3>
+                <p class="publication-details">Manigand, J. K. Jørgensen, H. Calcutt, H. S. P. Müller, N. F. W. Ligterink, A. Coutens, M. N. Drozdovskaya, E. F. van Dishoeck, S. F. Wampfler, A&A, 635, A48, 2020.</p>
+                <a href="#" class="publication-link" target="_blank">View Publication</a>
+                <div class="tooltip">
+                    <div class="tooltip-technical">This study presents a comprehensive inventory of complex organic molecules towards the protostar IRAS 16293-2422 A, providing constraints on their formation pathways and the physical conditions in this environment.</div>
+                    <div class="tooltip-divider"></div>
+                    <div class="tooltip-simple">We cataloged all the complex organic molecules we could find around a forming star system. This chemical inventory helps us understand what kinds of molecules exist in environments where planets will eventually form.</div>
+                </div>
+            </li>
+
+            <li class="publication-item" data-summary="This paper investigates the temperature profiles of young disk-like structures in IRAS 16293A using molecular line observations, providing constraints on the physical conditions during the early stages of disk formation." data-simple="We measured temperature changes across a very young planetary disk. Understanding these temperature gradients helps explain how different molecules form and distribute in new planetary systems.">
+                <h3 class="publication-title">Temperature profiles of young disk-like structures: The case of IRAS 16293A</h3>
+                <p class="publication-details">Merel L.R. van 't Hoff, Ewine F. van Dishoeck, Jes K. Jørgensen, and Hannah Calcutt, A&A 633, A7, 15, 2020.</p>
+                <a href="#" class="publication-link" target="_blank">View Publication</a>
+                <div class="tooltip">
+                    <div class="tooltip-technical">This paper investigates the temperature profiles of young disk-like structures in IRAS 16293A using molecular line observations, providing constraints on the physical conditions during the early stages of disk formation.</div>
+                    <div class="tooltip-divider"></div>
+                    <div class="tooltip-simple">We measured temperature changes across a very young planetary disk. Understanding these temperature gradients helps explain how different molecules form and distribute in new planetary systems.</div>
+                </div>
+            </li>
+
+            <li class="publication-item" data-summary="This study focuses on propyne (CH3CCH) in the protostellar binary IRAS 16293-2422, investigating its spatial distribution and abundance to understand its formation and role in protostellar chemistry." data-simple="We found a molecule called propyne around a forming binary star system. The way this molecule is distributed gives us clues about the physical and chemical conditions in these star-forming environments.">
+                <h3 class="publication-title">The ALMA-PILS survey: propyne (CH3CCH) in IRAS 16293–2422</h3>
+                <p class="publication-details">H. Calcutt, E. Willis, J. K. Jørgensen, P. Bjerkeli, N. F. W. Ligterink, A. Coutens, H. S. P. Müller, R. T. Garrod, S. F. Wampfler, M. N. Drozdovskaya, Astronomy & Astrophysics, in press.</p>
+                <a href="#" class="publication-link" target="_blank">View Publication</a>
+                <div class="tooltip">
+                    <div class="tooltip-technical">This study focuses on propyne (CH3CCH) in the protostellar binary IRAS 16293-2422, investigating its spatial distribution and abundance to understand its formation and role in protostellar chemistry.</div>
+                    <div class="tooltip-divider"></div>
+                    <div class="tooltip-simple">We found a molecule called propyne around a forming binary star system. The way this molecule is distributed gives us clues about the physical and chemical conditions in these star-forming environments.</div>
+                </div>
+            </li>
+
+            <li class="publication-item" data-summary="This paper examines the kinematics around the B335 protostar down to astronomical unit scales, providing insights into the gas dynamics and physical processes during the early stages of star formation." data-simple="We studied gas movement around a very young star at extremely high resolution - down to the scale of our solar system. This reveals details about how matter falls onto new stars and how rotation and outflows affect this process.">
+                <h3 class="publication-title">Kinematics around the B335 protostar down to au scales</h3>
+                <p class="publication-details">Bjerkeli, J. P. Ramsey, D. Harsono, H. Calcutt, L. E. Kristensen, M. H. D. van der Wiel, J. K. Jørgensen, S. Muller, and M. V. Persson. Astronomy & Astrophysics, in press.</p>
+                <a href="#" class="publication-link" target="_blank">View Publication</a>
+                <div class="tooltip">
+                    <div class="tooltip-technical">This paper examines the kinematics around the B335 protostar down to astronomical unit scales, providing insights into the gas dynamics and physical processes during the early stages of star formation.</div>
+                    <div class="tooltip-divider"></div>
+                    <div class="tooltip-simple">We studied gas movement around a very young star at extremely high resolution - down to the scale of our solar system. This reveals details about how matter falls onto new stars and how rotation and outflows affect this process.</div>
+                </div>
+            </li>
+
+            <li class="publication-item" data-summary="This study examines the gas dynamics in IRAS 16293-2422 and explores the connection between the two protostars in this binary system, providing insights into the physical mechanisms of binary star formation." data-simple="We studied gas movement between two forming stars in a binary system. Understanding how these baby stars interact helps explain how binary and multiple star systems form and evolve.">
+                <h3 class="publication-title">The ALMA-PILS survey: gas dynamics in IRAS 16293–2422 and a connection between its two protostars</h3>
+                <p class="publication-details">M. H. D. van der Wiel, S. K. Jacobsen, J. K. Jørgensen, T. L. Bourke, L. E. Kristensen, P. Bjerkeli, N. M. Murillo, H. Calcutt. Astronomy & Astrophysics, 626, A93, 2019.</p>
+                <a href="#" class="publication-link" target="_blank">View Publication</a>
+                <div class="tooltip">
+                    <div class="tooltip-technical">This study examines the gas dynamics in IRAS 16293-2422 and explores the connection between the two protostars in this binary system, providing insights into the physical mechanisms of binary star formation.</div>
+                    <div class="tooltip-divider"></div>
+                    <div class="tooltip-simple">We studied gas movement between two forming stars in a binary system. Understanding how these baby stars interact helps explain how binary and multiple star systems form and evolve.</div>
+                </div>
+            </li>
+
+            <li class="publication-item" data-summary="This paper investigates a transient phenomenon in the formation of stellar multiples called 'The Bridge', which provides insights into the mechanisms of fragmentation and multiple star formation." data-simple="We discovered a temporary connection structure between forming stars that we called 'The Bridge'. This helps explain how multiple star systems form from a single cloud of gas.">
+                <h3 class="publication-title">The Bridge: a transient phenomenon of forming stellar multiples</h3>
+                <p class="publication-details">Kuffmeier, H. Calcutt, and L. E. Kristensen. Astronomy & Astrophysics, 628, A112, 2019.</p>
+                <a href="#" class="publication-link" target="_blank">View Publication</a>
+                <div class="tooltip">
+                    <div class="tooltip-technical">This paper investigates a transient phenomenon in the formation of stellar multiples called 'The Bridge', which provides insights into the mechanisms of fragmentation and multiple star formation.</div>
+                    <div class="tooltip-divider"></div>
+                    <div class="tooltip-simple">We discovered a temporary connection structure between forming stars that we called 'The Bridge'. This helps explain how multiple star systems form from a single cloud of gas.</div>
+                </div>
+            </li>
+
+            <li class="publication-item" data-summary="This study reports the first detection of nitrous acid (HONO) in the interstellar medium, providing new insights into nitrogen chemistry in star-forming regions and potential pathways for prebiotic chemistry." data-simple="We found nitrous acid in space for the first time. This discovery helps us understand nitrogen chemistry in star-forming regions and possibly how molecules important for life might form in space.">
+                <h3 class="publication-title">The ALMA-PILS survey: First detection of nitrous acid (HONO) in the interstellar medium</h3>
+                <p class="publication-details">A. Coutens, N. F. W. Ligterink, J. -C. Loison, V. Wakelam, H. Calcutt, M. N. Drozdovskaya, J. K. Jørgensen, H. S. P. Müller, E. F. van Dishoeck, and S. F. Wampfler. Astronomy & Astrophysics, 623, L13, 2019.</p>
+                <a href="#" class="publication-link" target="_blank">View Publication</a>
+                <div class="tooltip">
+                    <div class="tooltip-technical">This study reports the first detection of nitrous acid (HONO) in the interstellar medium, providing new insights into nitrogen chemistry in star-forming regions and potential pathways for prebiotic chemistry.</div>
+                    <div class="tooltip-divider"></div>
+                    <div class="tooltip-simple">We found nitrous acid in space for the first time. This discovery helps us understand nitrogen chemistry in star-forming regions and possibly how molecules important for life might form in space.</div>
+                </div>
+            </li>
+
+            <li class="publication-item" data-summary="This paper presents the first detection of doubly-deuterated methyl formate (CHD2OCHO) in the interstellar medium, providing constraints on the formation pathways of complex organic molecules in star-forming regions." data-simple="We found a special form of methyl formate (an organic molecule) containing two deuterium atoms in space for the first time. This gives us clues about how complex molecules form in cold environments like star-forming regions.">
+                <h3 class="publication-title">The ALMA-PILS survey: The first detection of doubly-deuterated methyl formate (CHD2OCHO) in the ISM</h3>
+                <p class="publication-details">S. Manigand, H. Calcutt, J. K. Jørgensen, V. Taquet, H. S. P. Müller, A. Coutens, S. F. Wampfler, N. Ligterink, M. N. Drozdovskaya, L. E. Kristensen, M. H. D. van der Wiel, T. L. Bourke, A&A, 2018.</p>
+                <a href="#" class="publication-link" target="_blank">View Publication</a>
+                <div class="tooltip">
+                    <div class="tooltip-technical">This paper presents the first detection of doubly-deuterated methyl formate (CHD2OCHO) in the interstellar medium, providing constraints on the formation pathways of complex organic molecules in star-forming regions.</div>
+                    <div class="tooltip-divider"></div>
+                    <div class="tooltip-simple">We found a special form of methyl formate (an organic molecule) containing two deuterium atoms in space for the first time. This gives us clues about how complex molecules form in cold environments like star-forming regions.</div>
+                </div>
+            </li>
+        </ul>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Hannah Calcutt | Data Analytics & Visualization Expert</p>
+    </footer>
+
+    <script>
+        // Banner animation
+        gsap.from('.banner-content', {
+            opacity: 0,
+            y: 50,
+            duration: 1,
+            delay: 0.3
+        });
+
+        // Publications animation
+        gsap.from('.publication-item', {
+            opacity: 0,
+            y: 20,
+            duration: 0.5,
+            stagger: 0.1,
+            delay: 0.5
+        });
+    </script>
+</body>
+</html>
