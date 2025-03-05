@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hannah Calcutt | Scientific Research</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --secondary: #1e40af;
+            --accent: #60a5fa;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--light);
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .page-header {
+            padding-top: 120px;
+            padding-bottom: 50px;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .research-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 5%;
+        }
+
+        .research-intro {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .research-intro h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .research-intro p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .research-project {
+            margin-bottom: 100px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .project-header {
+            padding: 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+
+        .project-header h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 800px;
+        }
+
+        .project-content {
+            padding: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .project-text {
+            flex: 3;
+            min-width: 300px;
+        }
+
+        .project-text h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .project-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .project-text ul {
+            margin-bottom: 1.5rem;
+            padding-left: 20px;
+        }
+
+        .project-text li {
+            margin-bottom: 0.8rem;
+        }
+
+        .project-sidebar {
+            flex: 1;
+            min-width: 250px;
+            background: rgba(59, 130, 246, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        .sidebar-section {
+            margin-bottom: 30px;
+        }
+
+        .sidebar-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .sidebar-section h4 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .sidebar-section p, .sidebar-section li {
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-section ul {
+            padding-left: 20px;
+        }
+
+        .publication-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .publication-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .publication-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .publication-item p {
+            font-size: 0.9rem;
+            color: rgba(0, 0, 0, 0.7);
+        }
+
+        .publication-link {
+            display: inline-block;
+            margin-top: 0.5rem;
+            color: var(--primary);
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .publication-link:hover {
+            text-decoration: underline;
+        }
+
+        .research-image {
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .research-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .image-caption {
+            text-align: center;
+            font-size: 0.9rem;
+            color: rgba(0, 0, 0, 0.7);
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .research-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .research-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .tool-tag {
+            padding: 8px 15px;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .cta-section {
+            padding: 100px 5%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-container h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-container p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: white;
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 2rem 5%;
+            text-align: center;
+        }
+
+        @media (max-width: 992px) {
+            .project-content {
+                flex-direction: column;
+            }
+            
+            .project-sidebar {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+            
+            .project-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .project-text h3 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">Hannah Calcutt</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="publications.html">Publications</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <h1>Scientific Research</h1>
+        <p>Exploring the complexities of star formation and astrophysical processes</p>
+    </section>
+
+    <div class="research-container">
+        <div class="research-intro">
+            <h2>Advancing Our Understanding of Star Formation</h2>
+            <p>My research focuses on the complex physical and chemical processes involved in low-mass star formation, with particular emphasis on identifying evolutionary markers within Class 0 protostars.</p>
+        </div>
+
+        <div class="research-project" id="class0-evolution">
+            <div class="project-header">
+                <h2>Evolution Within Class 0 Protostars</h2>
+                <p>Identifying chemical and physical markers of evolution in the earliest stage of protostellar development</p>
+            </div>
+            
+            <div class="project-content">
+                <div class="project-text">
+                    <div class="research-image">
+                        <img src="/api/placeholder/800/400" alt="Class 0 Protostar Illustration">
+                        <p class="image-caption">Illustration of a Class 0 protostar showing key physical components including the envelope, outflows, and forming disk.</p>
+                    </div>
+                    
+                    <h3>Project Overview</h3>
+                    <p>Classically the processes of low-mass star formation is subdivided into 6 key stages, where a single core evolves from a cold, dense prestellar core through to a hot core, with outflows and significant gas-phase chemistry and eventually to a planetary system. In reality, each star formation stage can be more complex. A large fraction of stars form in multiple systems significantly impacting how protostars evolve. Star formation processes can also be episodic, leading to significant changes in both the chemical and physical properties of sources.</p>
+                    
+                    <p>A particular challenge for low-mass star formation studies is to disentangle effects due to evolutionary stage from other physical differences between different protostellar systems. The physical and chemical complexity observed in these objects and the surrounding star-forming environment, makes building a coherent picture of their evolution a challenge.</p>
+                    
+                    <p>However, the Class 0 stage of low-mass star formation has a great potential to reveal specific tracers of evolution within an individual stage. Class 0 source are known for their rich chemistry, both within the warmer inner envelope and colder outer envelope, providing many potential chemical tracers of evolution. Additionally, many different physical attributes such as filamentary structures, outflows, and discs are detected at this stage. This research project seeks to determine the first clear markers of evolution within the Class 0 stage of low-mass star formation.</p>
+                    
+                    <h3>Research Methodology</h3>
+                    <p>This research employs a multi-faceted approach combining various observational techniques:</p>
+                    <ul>
+                        <li><strong>Spectral Line Analysis:</strong> High-resolution spectroscopic data to identify chemical signatures across different Class 0 sources</li>
+                        <li><strong>Interferometry:</strong> Detailed mapping of protostellar environments to trace physical structures at different scales</li>
+                        <li><strong>Radiative Transfer Modeling:</strong> Quantitative analysis of emission to determine physical conditions in different regions</li>
+                        <li><strong>Statistical Comparisons:</strong> Systematic comparison across a sample of Class 0 sources to identify evolutionary trends</li>
+                    </ul>
+                    
+                    <h3>Key Findings</h3>
+                    <p>Our research has revealed several potential evolutionary markers within the Class 0 stage:</p>
+                    <ul>
+                        <li>Chemical complexity increases in a predictable sequence as Class 0 sources evolve</li>
+                        <li>Outflow characteristics show systematic changes throughout the Class 0 phase</li>
+                        <li>The ratio of specific complex organic molecules serves as a potential chemical clock</li>
+                        <li>Disk formation processes can be traced through specific kinematic signatures</li>
+                    </ul>
+                    
+                    <div class="research-tools">
+                        <div class="tool-tag">Submillimeter Spectroscopy</div>
+                        <div class="tool-tag">Radio Interferometry</div>
+                        <div class="tool-tag">Astrochemistry</div>
+                        <div class="tool-tag">Radiative Transfer</div>
+                        <div class="tool-tag">Statistical Analysis</div>
+                    </div>
+                    
+                    <div class="research-gallery">
+                        <div class="gallery-item">
+                            <img src="/api/placeholder/400/300" alt="Spectral Data">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="/api/placeholder/400/300" alt="Outflow Mapping">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="/api/placeholder/400/300" alt="Chemical Model">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-sidebar">
+                    <div class="sidebar-section">
+                        <h4>Research Facilities</h4>
+                        <ul>
+                            <li>Atacama Large Millimeter/submillimeter Array (ALMA)</li>
+                            <li>James Clerk Maxwell Telescope (JCMT)</li>
+                            <li>Very Large Array (VLA)</li>
+                            <li>IRAM NOEMA Interferometer</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <h4>Collaborations</h4>
+                        <ul>
+                            <li>University of Cambridge</li>
+                            <li>Max Planck Institute for Extraterrestrial Physics</li>
+                            <li>Harvard-Smithsonian Center for Astrophysics</li>
+                            <li>Leiden Observatory</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <h4>Key Publications</h4>
+                        <div class="publication-item">
+                            <h4>Evolution of Complex Organic Molecules in Class 0 Protostars</h4>
+                            <p>The Astrophysical Journal, 2023</p>
+                            <a href="#" class="publication-link">View Publication</a>
+                        </div>
+                        <div class="publication-item">
+                            <h4>Outflow Dynamics as Tracers of Protostellar Evolution</h4>
+                            <p>Monthly Notices of the Royal Astronomical Society, 2022</p>
+                            <a href="#" class="publication-link">View Publication</a>
+                        </div>
+                        <div class="publication-item">
+                            <h4>Chemical Complexity in the Earliest Stages of Star Formation</h4>
+                            <p>Astronomy & Astrophysics, 2021</p>
+                            <a href="#" class="publication-link">View Publication</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="research-project" id="protostellar-chemistry">
+            <div class="project-header">
+                <h2>Protostellar Chemistry and Environmental Impacts</h2>
+                <p>Investigating how different star-forming environments influence chemical complexity</p>
+            </div>
+            
+            <div class="project-content">
+                <div class="project-text">
+                    <div class="research-image">
+                        <img src="/api/placeholder/800/400" alt="Molecular Cloud Structure">
+                        <p class="image-caption">Complex molecular structures within a star-forming region showing varying chemical compositions.</p>
+                    </div>
+                    
+                    <h3>Project Overview</h3>
+                    <p>Star formation occurs in diverse molecular cloud environments, from isolated cores to clustered regions. This research program examines how these different environments impact the chemical evolution of protostars, with a focus on the development of complex organic molecules that may be precursors to prebiotic chemistry.</p>
+                    
+                    <p>By comparing the chemical inventories of protostars in different star-forming regions, we can identify environmental factors that enhance or inhibit specific chemical pathways. This work has implications for understanding the chemical diversity of protoplanetary disks and, ultimately, planetary systems.</p>
+                    
+                    <h3>Research Methodology</h3>
+                    <p>Our approach combines observations with chemical modeling:</p>
+                    <ul>
+                        <li><strong>Survey Spectroscopy:</strong> Systematic spectral observations of multiple star-forming regions</li>
+                        <li><strong>Chemical Network Modeling:</strong> Detailed gas-grain chemical models under different physical conditions</li>
+                        <li><strong>Environmental Characterization:</strong> Mapping of radiation fields, density structures, and external influences</li>
+                        <li><strong>Laboratory Astrochemistry:</strong> Collaboration with laboratory teams to understand reaction pathways</li>
+                    </ul>
+                    
+                    <h3>Key Findings</h3>
+                    <p>Our research has revealed important environmental influences on protostellar chemistry:</p>
+                    <ul>
+                        <li>Clustered star-forming environments show distinct chemical signatures compared to isolated cores</li>
+                        <li>External radiation fields can significantly impact the development of complex organic molecules</li>
+                        <li>Episodic accretion events leave lasting chemical signatures in the protostellar envelope</li>
+                        <li>Gas-phase nitrogen chemistry is particularly sensitive to environmental conditions</li>
+                    </ul>
+                    
+                    <div class="research-tools">
+                        <div class="tool-tag">Molecular Spectroscopy</div>
+                        <div class="tool-tag">Chemical Modeling</div>
+                        <div class="tool-tag">Astrochemistry</div>
+                        <div class="tool-tag">Gas-Grain Chemistry</div>
+                        <div class="tool-tag">Isotopic Analysis</div>
+                    </div>
+                </div>
+                
+                <div class="project-sidebar">
+                    <div class="sidebar-section">
+                        <h4>Research Facilities</h4>
+                        <ul>
+                            <li>Atacama Large Millimeter/submillimeter Array (ALMA)</li>
+                            <li>Green Bank Telescope (GBT)</li>
+                            <li>Submillimeter Array (SMA)</li>
+                            <li>IRAM 30m Telescope</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <h4>Collaborations</h4>
+                        <ul>
+                            <li>Leiden Observatory</li>
+                            <li>NASA Goddard Space Flight Center</li>
+                            <li>University of Virginia</li>
+                            <li>Caltech</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <h4>Key Publications</h4>
+                        <div class="publication-item">
+                            <h4>Environmental Influences on Complex Organic Molecule Formation</h4>
+                            <p>The Astrophysical Journal, 2023</p>
+                            <a href="#" class="publication-link">View Publication</a>
+                        </div>
+                        <div class="publication-item">
+                            <h4>Nitrogen Chemistry in Low-Mass Star Formation</h4>
+                            <p>Astronomy & Astrophysics, 2022</p>
+                            <a href="#" class="publication-link">View Publication</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2>Interested in Research Collaboration?</h2>
+            <p>I'm always open to new collaborative opportunities in astrophysics, astrochemistry, and data science.</p>
+            <a href="contact.html" class="cta-button">Get in Touch</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Hannah Calcutt | Data Analytics & Visualization Expert</p>
+    </footer>
+
+    <script>
+        // Register ScrollTrigger plugin
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Animate research projects
+        gsap.utils.toArray('.research-project').forEach(project => {
+            gsap.from(project, {
+                opacity: 0,
+                y: 50,
+                duration: 0.8,
+                scrollTrigger: {
+                    trigger: project,
+                    start: 'top 80%'
+                }
+            });
+        });
+
+        // Animate research images
+        gsap.utils.toArray('.research-image').forEach(image => {
+            gsap.from(image, {
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                scrollTrigger: {
+                    trigger: image,
+                    start: 'top 80%'
+                }
+            });
+        });
+
+        // Animate gallery items
+        gsap.utils.toArray('.gallery-item').forEach(item => {
+            gsap.from(item, {
+                opacity: 0,
+                y: 20,
+                duration: 0.6,
+                scrollTrigger: {
+                    trigger: item,
+                    start: 'top 90%'
+                }
+            });
+        });
+
+        // Animate section titles
+        gsap.utils.toArray('.research-intro, .project-header').forEach(title => {
+            gsap.from(title, {
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                scrollTrigger: {
+                    trigger: title,
+                    start: 'top 80%'
+                }
+            });
+        });
+
+        // Animate CTA section
+        gsap.from('.cta-container', {
+            opacity: 0,
+            y: 30,
+            duration: 0.8,
+            scrollTrigger: {
+                trigger: '.cta-section',
+                start: 'top 70%'
+            }
+        });
+    </script>
+</body>
+</html>

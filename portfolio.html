@@ -1,15 +1,14 @@
-<!-- portfolio.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | Hannah Calcutt</title>
+    <title>Hannah Calcutt | Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <style>
-        /* Include existing styles from main page */
         :root {
             --primary: #3b82f6;
             --secondary: #1e40af;
@@ -19,91 +18,697 @@
             --transition: all 0.3s ease;
         }
 
-        /* Portfolio specific styles */
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            padding: 120px 5% 60px;
-            max-width: 1200px;
-            margin: 0 auto;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .portfolio-item {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--light);
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
             transition: var(--transition);
         }
 
-        .portfolio-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .portfolio-image {
-            height: 250px;
-            background: var(--primary);
-            position: relative;
-        }
-
-        .portfolio-content {
-            padding: 2rem;
-        }
-
-        .portfolio-tags {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .tag {
-            background: var(--light);
-            padding: 0.25rem 0.75rem;
-            border-radius: 50px;
-            font-size: 0.875rem;
+        nav a:hover {
             color: var(--primary);
         }
 
-        .case-study-btn {
+        .page-header {
+            padding-top: 120px;
+            padding-bottom: 50px;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .portfolio-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 5%;
+        }
+
+        .portfolio-intro {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .portfolio-intro h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .portfolio-intro p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .portfolio-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background-color: var(--accent);
+            position: relative;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-content h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .project-content p {
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+
+        .project-link {
             display: inline-block;
-            padding: 0.75rem 1.5rem;
+            padding: 0.7rem 1.5rem;
             background: var(--primary);
             color: white;
             text-decoration: none;
             border-radius: 50px;
-            margin-top: 1rem;
+            font-weight: 500;
+            transition: var(--transition);
+            text-align: center;
+            align-self: flex-start;
+        }
+
+        .project-link:hover {
+            background: var(--secondary);
+        }
+
+        .categories-filter {
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .category-btn {
+            padding: 0.6rem 1.5rem;
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 50px;
+            font-weight: 500;
+            cursor: pointer;
             transition: var(--transition);
         }
 
-        .case-study-btn:hover {
-            background: var(--secondary);
+        .category-btn:hover, .category-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .featured-projects {
+            margin-bottom: 60px;
+        }
+
+        .featured-project {
+            display: flex;
+            align-items: center;
+            gap: 5%;
+            margin-bottom: 60px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .featured-project:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .featured-image {
+            flex: 1;
+            height: 400px;
+            background-color: var(--accent);
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .featured-content {
+            flex: 1;
+            padding: 3rem;
+        }
+
+        .featured-content h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .featured-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+        }
+
+        .cta-section {
+            padding: 100px 5%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-container h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-container p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: white;
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 2rem 5%;
+            text-align: center;
+        }
+
+        .project-tag {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .portfolio-section {
+            margin-bottom: 80px;
+        }
+        
+        .portfolio-section h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .portfolio-section p {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem auto;
+        }
+
+        @media (max-width: 992px) {
+            .featured-project {
+                flex-direction: column;
+            }
+            
+            .featured-project:nth-child(even) {
+                flex-direction: column;
+            }
+            
+            .featured-image {
+                width: 100%;
+                height: 300px;
+            }
+            
+            .featured-content {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .categories-filter {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Include header from main page -->
-    <header>...</header>
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">Hannah Calcutt</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="publications.html">Publications</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-    <div class="portfolio-grid">
-        <div class="portfolio-item">
-            <div class="portfolio-image">
-                <img src="/api/placeholder/400/250" alt="E-commerce Analytics Dashboard">
-            </div>
-            <div class="portfolio-content">
-                <div class="portfolio-tags">
-                    <span class="tag">Data Visualization</span>
-                    <span class="tag">E-commerce</span>
+    <section class="page-header">
+        <h1>Portfolio</h1>
+        <p>A showcase of research, data science projects, and interface designs</p>
+    </section>
+
+    <div class="portfolio-container">
+        <div class="portfolio-intro">
+            <h2>Selected Works</h2>
+            <p>Explore a collection of my key projects spanning scientific research, data visualisation, and user interface design. Each project represents my commitment to data-driven innovation and user-centered solutions.</p>
+        </div>
+
+        <div class="categories-filter">
+            <button class="category-btn active" data-filter="all">All Projects</button>
+            <button class="category-btn" data-filter="research">Research</button>
+            <button class="category-btn" data-filter="ui-ux">UI/UX Design</button>
+            <button class="category-btn" data-filter="data-viz">Data Visualisation</button>
+            <button class="category-btn" data-filter="data-science">Data Science</button>
+        </div>
+
+        <div class="featured-projects">
+            <div class="featured-project" data-category="ui-ux">
+                <div class="featured-image">
+                    <img src="/api/placeholder/600/400" alt="Train Status UI">
                 </div>
-                <h3>E-commerce Analytics Dashboard</h3>
-                <p>Real-time sales tracking and customer behavior analysis for a major retail client.</p>
-                <a href="#" class="case-study-btn">View Case Study</a>
+                <div class="featured-content">
+                    <span class="project-tag">UI/UX Design</span>
+                    <span class="project-tag">Data Visualisation</span>
+                    <h3>Train Status UI</h3>
+                    <p>A responsive user interface that provides real-time train information and service updates. This project integrates complex transit data into an intuitive visual interface that helps passengers make informed travel decisions.</p>
+                    <p>The interface features predictive delay notifications, journey replanning tools, and accessibility optimizations to ensure all users can access critical information efficiently.</p>
+                    <a href="train-status-ui.html" class="project-link">View Project</a>
+                </div>
+            </div>
+
+            <div class="featured-project" data-category="research">
+                <div class="featured-image">
+                    <img src="/api/placeholder/600/400" alt="Evolution Research">
+                </div>
+                <div class="featured-content">
+                    <span class="project-tag">Research</span>
+                    <span class="project-tag">Data Analysis</span>
+                    <h3>Evolution Within Class 0 Protostars</h3>
+                    <p>A comprehensive research project investigating the physical and chemical processes in low-mass star formation. This work examines the evolutionary markers within Class 0 protostars to build a coherent picture of early stellar development.</p>
+                    <p>The research combines high-resolution spectroscopic data and interferometry with statistical analysis to identify patterns of evolution in these earliest stages of star formation.</p>
+                    <a href="scientific-research.html#class0-evolution" class="project-link">View Research</a>
+                </div>
             </div>
         </div>
-        <!-- Add more portfolio items -->
+
+        <section class="portfolio-section" id="research-projects" data-category="research">
+            <h2>Scientific Research</h2>
+            <p>My academic and applied research work focuses on astrophysics, star formation processes, and astrochemistry using advanced spectroscopic methods and computational modeling techniques.</p>
+            
+            <div class="portfolio-grid">
+                <div class="portfolio-card" data-category="research">
+                    <div class="project-image">
+                        <img src="/api/placeholder/400/300" alt= Research">
+                    </div>
+                    <div class="project-content">
+                        <span class="project-tag">Astrophysics</span>
+                        <span class="project-tag">Star Formation</span>
+                        <h3>Class 0 Protostar Evolution</h3>
+                        <p>Research investigating the evolutionary markers within the Class 0 stage of low-mass star formation, with a focus on chemical and physical processes.</p>
+                        <a href="scientific-research.html#class0-evolution" class="project-link">Research Details</a>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-category="research">
+                    <div class="project-image">
+                        <img src="/api/placeholder/400/300" alt="Neural Connections">
+                    </div>
+                    <div class="project-content">
+                        <span class="project-tag">Astrochemistry</span>
+                        <h3>Chemical Complexity in Star Formation</h3>
+                        <p>Examination of molecular complexity in star-forming regions, with implications for understanding the chemical development of protostellar systems.</p>
+                        <a href="scientific-research.html#astrochemistry" class="project-link">Research Details</a>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-category="research">
+                    <div class="project-image">
+                        <img src="/api/placeholder/400/300" alt="Research">
+                    </div>
+                    <div class="project-content">
+                        <span class="project-tag">Radio Astronomy</span>
+                        <span class="project-tag">Interferometry</span>
+                        <h3>Outflow Dynamics in Young Stellar Objects</h3>
+                        <p>Statistical analysis of outflow characteristics in young stellar objects, with a focus on their role in the evolutionary process of star formation.</p>
+                        <a href="scientific-research.html#outflows" class="project-link">Research Details</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="portfolio-section" id="ui-ux-projects" data-category="ui-ux">
+            <h2>UI/UX Design</h2>
+            <p>My interface designs combine visual elegance with data-driven functionality, creating intuitive user experiences that simplify complex information and processes.</p>
+            
+            <div class="portfolio-grid">
+                <div class="portfolio-card" data-category="ui-ux">
+                    <div class="project-image">
+                        <img src="/api/placeholder/400/300" alt="Train Status UI">
+                    </div>
+                    <div class="project-content">
+                        <span class="project-tag">UI/UX Design</span>
+                        <h3>Train Status UI</h3>
+                        <p>A responsive interface providing real-time information on train services, delays, and platform changes with intuitive visualisation of complex transit data.</p>
+                        <a href="train-status-ui.html" class="project-link">View Details</a>
+                    </div>
+                </div>
+
+               
+               
+
+        <section class="portfolio-section" id="data-viz-projects" data-category="data-viz">
+            <h2>Data Visualisation</h2>
+            <p>My data visualisation projects transform complex information into clear, insightful visual representations that reveal patterns and facilitate better decision-making.</p>
+            
+            <div class="portfolio-grid">
+                <div class="portfolio-card" data-category="data-viz">
+                    <div class="project-image">
+                        <img src="/api/placeholder/400/300" alt="Marine Ecosystem Visualisation">
+                    </div>
+                    <div class="project-content">
+                        <span class="project-tag">Data Visualisation</span>
+                        <span class="project-tag">Astrophysics</span>
+                        <h3>Protostellar Evolution Visualisation</h3>
+                        <p>Interactive visualisation of protostellar evolution data showing the relationships between physical properties and chemical signatures over time.</p>
+                        <a href="protostar-viz.html" class="project-link">View Details</a>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-category="data-viz">
+                    <div class="project-image">
+                        <img src="/api/placeholder/400/300" alt="Data Visualisation">
+                    </div>
+                    <div class="project-content">
+                        <span class="project-tag">Data Visualisation</span>
+                        <span class="project-tag">Molecular Spectroscopy</span>
+                        <h3>Molecular Line Analysis</h3>
+                        <p>Visual representation of spectroscopic data from star-forming regions, highlighting molecular complexity and chemical evolution patterns.</p>
+                        <a href="spectral-viz.html" class="project-link">View Details</a>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-category="data-viz">
+                    <div class="project-image">
+                        <img src="/api/placeholder/400/300" alt="Transportation Data Visualisation">
+                    </div>
+                    <div class="project-content">
+                        <span class="project-tag">Data Visualisation</span>
+                        <span class="project-tag">Transportation</span>
+                        <h3>Urban Transit Patterns</h3>
+                        <p>Visual analysis of urban transportation data revealing passenger flow patterns, peak usage times, and service optimization opportunities.</p>
+                        <a href="transit-viz.html" class="project-link">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="portfolio-section" id="data-science-projects" data-category="data-science">
+            <h2>Data Science</h2>
+            <p>My data science projects leverage advanced analytics, machine learning, and statistical methods to extract meaningful insights and develop predictive capabilities.</p>
+            
+            <div class="portfolio-grid">
+                <div class="portfolio-card" data-category="data-science">
+                    <div class="project-image">
+                        <img src="/api/placeholder/400/300" alt="Predictive Maintenance">
+                    </div>
+                    <div class="project-content">
+                        <span class="project-tag">Machine Learning</span>
+                        <span class="project-tag">Predictive Analytics</span>
+                        <h3>Predictive Maintenance System</h3>
+                        <p>Machine learning model that predicts equipment failures in transportation systems before they occur, minimizing downtime and maintenance costs.</p>
+                        <a href="predictive-maintenance.html" class="project-link">View Details</a>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-category="data-science">
+                    <div class="project-image">
+                        <img src="/api/placeholder/400/300" alt="Passenger Behavior Analysis">
+                    </div>
+                    <div class="project-content">
+                        <span class="project-tag">Data Science</span>
+                        <span class="project-tag">Behavioral Analysis</span>
+                        <h3>Transit Passenger Behavior Analysis</h3>
+                        <p>Statistical analysis of passenger behavior patterns to optimize service schedules and improve overall transportation system efficiency.</p>
+                        <a href="passenger-analysis.html" class="project-link">View Details</a>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-category="data-science">
+                    <div class="project-image">
+                        <img src="/api/placeholder/400/300" alt="Neural Network">
+                    </div>
+                    <div class="project-content">
+                        <span class="project-tag">Deep Learning</span>
+                        <span class="project-tag">Spectral Analysis</span>
+                        <h3>Astronomical Spectral Analysis</h3>
+                        <p>Deep learning model developed to identify patterns in astronomical spectral data, with applications in automated chemical composition analysis of star-forming regions.</p>
+                        <a href="spectral-analysis.html" class="project-link">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <footer>...</footer>
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2>Interested in Collaboration?</h2>
+            <p>Let's discuss how my expertise in data science, visualisation, and interface design can contribute to your next project.</p>
+            <a href="contact.html" class="cta-button">Contact Me</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Hannah Calcutt | Data Analytics & Visualisation Expert</p>
+    </footer>
+
+    <script>
+        // Register ScrollTrigger plugin
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Animate portfolio cards
+        gsap.utils.toArray('.portfolio-card').forEach(card => {
+            gsap.from(card, {
+                opacity: 0,
+                y: 50,
+                duration: 0.8,
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 90%'
+                }
+            });
+        });
+
+        // Animate featured projects
+        gsap.utils.toArray('.featured-project').forEach(project => {
+            gsap.from(project, {
+                opacity: 0,
+                y: 50,
+                duration: 0.8,
+                scrollTrigger: {
+                    trigger: project,
+                    start: 'top 80%'
+                }
+            });
+        });
+
+        // Animate section titles
+        gsap.utils.toArray('.section-title, .portfolio-intro, .portfolio-section h2').forEach(title => {
+            gsap.from(title, {
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                scrollTrigger: {
+                    trigger: title,
+                    start: 'top 80%'
+                }
+            });
+        });
+
+        // Animate CTA section
+        gsap.from('.cta-container', {
+            opacity: 0,
+            y: 30,
+            duration: 0.8,
+            scrollTrigger: {
+                trigger: '.cta-section',
+                start: 'top 70%'
+            }
+        });
+
+        // Category filter functionality
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-card, .featured-project, .portfolio-section');
+        
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Get filter value
+                const filter = button.getAttribute('data-filter');
+                
+                // Filter items
+                portfolioItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'flex';
+                        // Animate items coming into view
+                        gsap.fromTo(item, 
+                            {opacity: 0, y: 20}, 
+                            {opacity: 1, y: 0, duration: 0.5, stagger: 0.1}
+                        );
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
