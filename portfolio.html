@@ -38,6 +38,7 @@
             line-height: 1.6;
             color: var(--dark);
             background: var(--light);
+            overflow-x: hidden; /* Prevent horizontal scroll during mobile menu transition */
         }
 
         header {
@@ -63,6 +64,12 @@
             font-weight: 700;
             color: var(--primary);
             text-decoration: none;
+            z-index: 1001; /* Keep logo above mobile menu */
+        }
+
+        /* Desktop Navigation */
+        nav {
+            position: relative;
         }
 
         nav ul {
@@ -80,6 +87,26 @@
 
         nav a:hover {
             color: var(--primary);
+        }
+
+        /* Mobile Menu Button */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 1001; /* Keep button above mobile menu */
+        }
+
+        .menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: var(--primary);
+            border-radius: 3px;
+            transition: var(--transition);
         }
 
         .page-header {
@@ -288,12 +315,16 @@
         .cta-container h2 {
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
+            color: #ffffff; /* Bright white text to improve contrast */
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Text shadow for better readability */
         }
 
         .cta-container p {
             font-size: 1.2rem;
             margin-bottom: 2rem;
-            opacity: 0.9;
+            color: #ffffff; /* Bright white text */
+            opacity: 1; /* Full opacity instead of 0.9 */
+            font-weight: 400; /* Slightly bolder text */
         }
 
         .cta-button {
@@ -349,6 +380,13 @@
             margin: 0 auto 3rem auto;
         }
 
+        /* Media Queries for Responsive Design */
+        @media (max-width: 1024px) {
+            nav ul {
+                gap: 1.5rem;
+            }
+        }
+
         @media (max-width: 992px) {
             .featured-project {
                 flex-direction: column;
@@ -369,12 +407,52 @@
         }
 
         @media (max-width: 768px) {
-            .page-header h1 {
-                font-size: 2.5rem;
+            .menu-toggle {
+                display: flex;
             }
 
             nav ul {
-                gap: 1rem;
+                position: fixed;
+                flex-direction: column;
+                background-color: white;
+                top: 0;
+                right: -100%;
+                width: 250px;
+                height: 100vh;
+                padding-top: 80px;
+                gap: 0;
+                transition: right 0.3s ease;
+                box-shadow: -5px 0px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            nav.active ul {
+                right: 0;
+            }
+
+            nav ul li {
+                width: 100%;
+            }
+
+            nav ul li a {
+                display: block;
+                padding: 1rem 2rem;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            }
+
+            .menu-toggle.active span:nth-child(1) {
+                transform: translateY(9px) rotate(45deg);
+            }
+
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.active span:nth-child(3) {
+                transform: translateY(-9px) rotate(-45deg);
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
             }
 
             .portfolio-grid {
@@ -395,6 +473,10 @@
                 flex-direction: column;
                 align-items: center;
             }
+            
+            .cta-container h2 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
@@ -402,6 +484,11 @@
     <header>
         <div class="header-container">
             <a href="index.html" class="logo">Hannah Calcutt</a>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
@@ -471,7 +558,7 @@
             <div class="portfolio-grid">
                 <div class="portfolio-card" data-category="research">
                     <div class="project-image">
-                        <img src="/api/placeholder/400/300" alt= Research">
+                        <img src="/api/placeholder/400/300" alt="Research">
                     </div>
                     <div class="project-content">
                         <span class="project-tag">Astrophysics</span>
@@ -525,9 +612,8 @@
                         <a href="train-status-ui.html" class="project-link">View Details</a>
                     </div>
                 </div>
-
-               
-               
+            </div>
+        </section>
 
         <section class="portfolio-section" id="data-viz-projects" data-category="data-viz">
             <h2>Data Visualisation</h2>
@@ -559,8 +645,7 @@
                         <a href="spectral-viz.html" class="project-link">View Details</a>
                     </div>
                 </div>
-
-           
+            </div>
         </section>
 
         <section class="portfolio-section" id="data-science-projects" data-category="data-science">
@@ -704,6 +789,35 @@
                         item.style.display = 'none';
                     }
                 });
+            });
+        });
+        
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const nav = document.querySelector('nav');
+        
+        menuToggle.addEventListener('click', function() {
+            menuToggle.classList.toggle('active');
+            nav.classList.toggle('active');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInsideNav = nav.contains(event.target);
+            const isClickOnToggle = menuToggle.contains(event.target);
+            
+            if (!isClickInsideNav && !isClickOnToggle && nav.classList.contains('active')) {
+                menuToggle.classList.remove('active');
+                nav.classList.remove('active');
+            }
+        });
+
+        // Close menu when clicking on a link
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                menuToggle.classList.remove('active');
+                nav.classList.remove('active');
             });
         });
     </script>
