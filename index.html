@@ -169,76 +169,6 @@
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
         }
 
-        .services-preview {
-            padding: 100px 5%;
-            background: white;
-        }
-
-        .services-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--dark);
-            margin-bottom: 1rem;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .service-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--primary);
-            transition: var(--transition);
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .service-card:hover::before {
-            width: 100%;
-            opacity: 0.1;
-        }
-
-        .service-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-
-        .chart-container {
-            width: 100%;
-            height: 300px;
-            margin-top: 2rem;
-        }
-
         footer {
             background: var(--dark);
             color: white;
@@ -253,10 +183,6 @@
 
             nav ul {
                 gap: 1rem;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
             }
 
             .stats-preview {
@@ -290,49 +216,6 @@
             <h1>Data-Driven Solutions<br>for Business Growth</h1>
             <p>Transforming raw data into actionable insights through advanced analytics, visualisation, and AI-powered solutions.</p>
             <a href="contact.html" class="cta-button">Discuss Your Project</a>
-            
-
-        </div>
-    </section>
-
-    <section class="services-preview" id="services">
-        <div class="services-container">
-            <div class="section-title">
-                <h2>Services</h2>
-                <p>Comprehensive data solutions for modern businesses</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">📊</div>
-                    <h3>Data Visualisation</h3>
-                    <p>Transform complex data into clear, actionable insights through interactive dashboards and compelling visualisations.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">📈</div>
-                    <h3>Data Analysis</h3>
-                    <p>Deep dive into your data to uncover patterns, trends, and opportunities for business growth.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">🤖</div>
-                    <h3>AI & Machine Learning</h3>
-                    <p>Leverage advanced AI solutions for predictive analytics and automated decision-making.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">⚡</div>
-                    <h3>Process Automation</h3>
-                    <p>Streamline operations and boost efficiency through intelligent automation solutions.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">📱</div>
-                    <h3>Dashboard Creation</h3>
-                    <p>Custom, interactive dashboards that provide real-time insights into your business metrics.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">⚙️</div>
-                    <h3>Operational Efficiency</h3>
-                    <p>Optimise business processes using data-driven insights and automation.</p>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -349,17 +232,6 @@
             y: 50,
             duration: 1,
             delay: 0.5
-        });
-
-        gsap.from('.service-card', {
-            opacity: 0,
-            y: 50,
-            duration: 0.8,
-            stagger: 0.2,
-            scrollTrigger: {
-                trigger: '.services-grid',
-                start: 'top center'
-            }
         });
     </script>
 </body>
