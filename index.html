@@ -137,6 +137,16 @@
             color: white;
             position: relative;
             z-index: 1;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .hero-text {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 2rem;
         }
 
         .hero h1 {
@@ -197,6 +207,36 @@
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
         }
 
+        /* Single image styles */
+        .hero-image {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            height: 350px;
+        }
+
+        .feature-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background-color: rgba(0, 0, 0, 0.05);
+            display: block;
+        }
+
+        .image-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            backdrop-filter: blur(5px);
+        }
+
         footer {
             background: var(--dark);
             color: white;
@@ -208,6 +248,27 @@
         @media (max-width: 1024px) {
             nav ul {
                 gap: 1.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 960px) {
+            .hero-content {
+                flex-direction: column;
+                gap: 3rem;
+            }
+            
+            .hero-text {
+                padding-right: 0;
+            }
+            
+            .hero-image {
+                width: 100%;
+                max-width: 600px;
+                margin: 0 auto;
             }
         }
 
@@ -266,6 +327,20 @@
                 right: auto;
                 margin-top: 2rem;
             }
+            
+            .hero-image {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-image {
+                height: 250px;
+            }
+            
+            .image-caption h3 {
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
@@ -282,7 +357,7 @@
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="services.html">Services</a></li>
-                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <!--<li><a href="portfolio.html">Portfolio</a></li>-->
                     <li><a href="publications.html">Publications</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="contact.html">Contact</a></li>
@@ -293,9 +368,19 @@
 
     <section class="hero" id="home">
         <div class="hero-content">
-            <h1>Data-Driven Solutions<br>for Business Growth</h1>
-            <p>Transforming raw data into actionable insights through advanced analytics, visualisation, and AI-powered solutions.</p>
-            <a href="contact.html" class="cta-button">Discuss Your Project</a>
+            <div class="hero-text">
+                <h1>Data-Driven Solutions<br>for Business Growth</h1>
+                <p>Transforming raw data into actionable insights through advanced analytics, visualisation, and AI-powered solutions.</p>
+                <a href="contact.html" class="cta-button">Discuss Your Project</a>
+            </div>
+            
+            <!-- Single image instead of carousel -->
+            <div class="hero-image">
+                <img src="images/traindelays.png" alt="Train delays vs weather data visualization" class="feature-img">
+                <div class="image-caption">
+                    <h3>Exploratory data analysis</h3>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -336,11 +421,18 @@
         // Register ScrollTrigger plugin
         gsap.registerPlugin(ScrollTrigger);
         
-        gsap.from('.hero-content', {
+        gsap.from('.hero-text', {
             opacity: 0,
-            y: 50,
+            x: -50,
             duration: 1,
             delay: 0.5
+        });
+        
+        gsap.from('.hero-image', {
+            opacity: 0,
+            x: 50,
+            duration: 1,
+            delay: 0.7
         });
     </script>
 </body>
